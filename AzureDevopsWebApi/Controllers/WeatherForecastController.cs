@@ -26,6 +26,8 @@ namespace AzureDevopsWebApi.Controllers
         [HttpGet]
         public IEnumerable<WeatherForecast> Get()
         {
+
+            // Hello - just made a comment change to show change in git 
             var rng = new Random();
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
             {
