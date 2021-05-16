@@ -43,8 +43,8 @@ steps:
 - task: IISWebAppManagementOnMachineGroup@0
   displayName: 'IIS Web App Manage'
   inputs:
-    IISDeploymentType: '$(Parameters.IISDeploymentType)'
-    ActionIISWebsite: '$(Parameters.ActionIISWebsite)'
+    IISDeploymentType: 'IISWebsite'
+    ActionIISWebsite: 'CreateOrUpdateWebsite'
     WebsiteName: '$(Parameters.WebsiteName)'
     WebsitePhysicalPath: '%SystemDrive%\inetpub\wwwroot\My2AzureDevOpsWebApi'
     AddBinding: '$(Parameters.AddBinding)'
