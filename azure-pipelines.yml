@@ -39,28 +39,3 @@ steps:
     publishWebProjects: True
     arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
     zipAfterPublish: True
-
-- task: IISWebAppManagementOnMachineGroup@0
-  displayName: 'IIS Web App Manage'
-  inputs:
-    IISDeploymentType: 'IISWebsite'
-    ActionIISWebsite: 'CreateOrUpdateWebsite'
-    WebsiteName: '$(Parameters.WebsiteName)'
-    WebsitePhysicalPath: '%SystemDrive%\inetpub\wwwroot\My2AzureDevOpsWebApi'
-    AddBinding: '$(Parameters.AddBinding)'
-    Bindings: '$(Parameters.Bindings)'
-    CreateOrUpdateAppPoolForWebsite: true
-    AppPoolNameForWebsite: My2AzureDevOpsWebApiAppPool
-    DotNetVersionForWebsite: 'No Managed Code'
-    ParentWebsiteNameForVD: '$(Parameters.WebsiteName)'
-    VirtualPathForVD: '$(Parameters.VirtualPathForApplication)'
-    ParentWebsiteNameForApplication: '$(Parameters.WebsiteName)'
-    VirtualPathForApplication: '$(Parameters.VirtualPathForApplication)'
-    AppPoolName: '$(Parameters.AppPoolName)'
-
-- task: IISWebAppDeploymentOnMachineGroup@0
-  displayName: 'IIS Web App Deploy'
-  inputs:
-    WebSiteName: '$(Parameters.WebsiteName)'
-    TakeAppOfflineFlag: True
-    XmlVariableSubstitution: True
