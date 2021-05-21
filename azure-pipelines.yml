@@ -62,8 +62,21 @@ steps:
     DotNetVersionForWebsite: 'No Managed Code'
     PipeLineModeForWebsite: 'Integrated'
     AppPoolIdentityForWebsite: 'ApplicationPoolIdentity'
+        Bindings: |
+        {
+            bindings:[
+                {
+                    "protocol":"http",
+                    "ipAddress":"All Unassigned",
+                    "hostname":"",
+                    "port":"88"
+                }
+            ]
+        }
+
 
 - task: IISWebAppDeploymentOnMachineGroup@0
   inputs:
     WebSiteName: 'MyAzureDevOpsWebApi7'
     Package: '$(System.DefaultWorkingDirectory)\AspNetCoreExample\AzureDevopsWebApi.zip'
+
