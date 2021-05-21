@@ -62,7 +62,7 @@ steps:
     DotNetVersionForWebsite: 'No Managed Code'
     PipeLineModeForWebsite: 'Integrated'
     AppPoolIdentityForWebsite: 'ApplicationPoolIdentity'
-        Bindings: |
+    Bindings: |
         {
             bindings:[
                 {
