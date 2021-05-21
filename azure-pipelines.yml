@@ -68,7 +68,7 @@ steps:
             bindings:[
                 {
                     "protocol":"http",
-                    "ipAddress":"192.168.1.215",
+                    "ipAddress":"172.22.80.1",
                     "hostname":"www.test.co.uk",
                     "port":"88",
                     "sslThumbprint":"",
