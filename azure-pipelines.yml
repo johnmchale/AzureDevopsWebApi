@@ -44,6 +44,7 @@ steps:
   inputs:
    pathToPublish: $(Build.ArtifactStagingDirectory)
    artifactName: AspNetCoreExample
+   artifact: drop
 
 - task: IISWebAppManagementOnMachineGroup@0
   displayName: 'IIS Web App Manage'
@@ -72,11 +73,6 @@ steps:
             ]
         }
 
-# download the artifact drop from the previous job
-- task: DownloadBuildArtifacts@0
-  inputs:
-    artifactName: drop
-    downloadPath: '$(System.DefaultWorkingDirectory)'
 
 - task: IISWebAppDeploymentOnMachineGroup@0
   displayName: 'IIS Web App Deploy'
