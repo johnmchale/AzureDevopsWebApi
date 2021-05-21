@@ -45,6 +45,11 @@ steps:
    pathToPublish: $(Build.ArtifactStagingDirectory)
    artifactName: AspNetCoreExample
 
+- task: DownloadBuildArtifacts@0
+  inputs:
+    artifactName: AspNetCoreExample
+    downloadPath: '$(System.DefaultWorkingDirectory)'
+
 - task: IISWebAppManagementOnMachineGroup@0
   inputs:
     IISDeploymentType: 'IISWebsite'
