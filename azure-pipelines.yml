@@ -76,6 +76,6 @@ steps:
   displayName: 'IIS Web App Deploy'
   inputs:
     WebSiteName: '$(Parameters.WebsiteName)'
-    Package: '$(System.DefaultWorkingDirectory)/_johnmchale.AzureDevopsWebApi/AspNetCoreExample/AzureDevopsWebApi.zip'
+    Package: '$(System.DefaultWorkingDirectory)/_johnmchale.AzureDevopsWebApi/AspNetCoreExample/*.zip'
     TakeAppOfflineFlag: True
     XmlVariableSubstitution: True
