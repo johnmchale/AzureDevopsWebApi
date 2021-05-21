@@ -66,4 +66,4 @@ steps:
 - task: IISWebAppDeploymentOnMachineGroup@0
   inputs:
     WebSiteName: 'MyAzureDevOpsWebApi7'
-    Package: '$(System.DefaultWorkingDirectory)\**\*.zip'
+    Package: '$(System.DefaultWorkingDirectory)\AspNetCoreExample\AzureDevopsWebApi.zip'
