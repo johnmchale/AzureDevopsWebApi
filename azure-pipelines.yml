@@ -71,3 +71,11 @@ steps:
                 }
             ]
         }
+
+- task: IISWebAppDeploymentOnMachineGroup@0
+  displayName: 'IIS Web App Deploy'
+  inputs:
+    WebSiteName: '$(Parameters.WebsiteName)'
+    Package: '$(System.DefaultWorkingDirectory)/_johnmchale.AzureDevopsWebApi/AspNetCoreExample/AzureDevopsWebApi.zip'
+    TakeAppOfflineFlag: True
+    XmlVariableSubstitution: True
