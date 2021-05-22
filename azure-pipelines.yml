@@ -46,20 +46,22 @@ stages:
       inputs:
         PathtoPublish: '$(Build.ArtifactStagingDirectory)'
         ArtifactName: 'drop'
+        publishLocation: 'Container'
 
 - stage: 'Deploy'
   displayName: 'Deploy the web application'
+  dependsOn: Build
   jobs:
-  - deployment: 'DeployToHPSpectreX360'
-    displayName: 'Deploy the web application to HPSpectreX360 environment'
+  - deployment: 'DeployToDev'
+    displayName: 'Deploy the web application to dev environment'
     variables:
       Parameters.IISDeploymentType: 'IISWebsite'
       Parameters.ActionIISWebsite: 'CreateOrUpdateWebsite'
-      Parameters.WebsiteName: 'MyAzureDevOpsWebApi7'
-      Parameters.WebsitePhysicalPath: '%SystemDrive%\inetpub\wwwroot\MyAzureDevOpsWebApi'
-      Parameters.AddBinding: true
+      Parameters.WebsiteName: 'Default Web Site'
+      Parameters.WebsitePhysicalPath: '%SystemDrive%\inetpub\wwwroot\AspNetDemo'
+      Parameters.AddBinding: false
       Parameters.VirtualPathForApplication: '/AspNetDemo'
-      Parameters.AppPoolName: 'MyAzureDevOpsWebApiAppPool'
+      Parameters.AppPoolName: ''
       Parameters.VirtualApplication: 'AspNetDemo'
       Parameters.Package: '$(Pipeline.Workspace)\drop\*.zip'
       Parameters.RemoveAdditionalFilesFlag: true
@@ -74,7 +76,7 @@ stages:
         deploy:
           steps:
           - download: current
-            artifact: AspNetCoreExample
+            artifact: drop
             
           - task: IISWebAppManagementOnMachineGroup@0
             displayName: 'IIS Web App Manage'
@@ -83,29 +85,12 @@ stages:
               ActionIISWebsite: '$(Parameters.ActionIISWebsite)'
               WebsiteName: '$(Parameters.WebsiteName)'
               WebsitePhysicalPath: '$(Parameters.WebsitePhysicalPath)'
-              WebsitePhysicalPathAuth: 'WebsiteUserPassThrough'
               AddBinding: $(Parameters.AddBinding)
               ParentWebsiteNameForVD: '$(Parameters.WebsiteName)'
               VirtualPathForVD: '$(Parameters.VirtualPathForApplication)'
               ParentWebsiteNameForApplication: '$(Parameters.WebsiteName)'
               VirtualPathForApplication: '$(Parameters.VirtualPathForApplication)'
-              CreateOrUpdateAppPoolForWebsite: true
-              AppPoolNameForWebsite: 'MyAzureDevOpsWebApiAppPool'
-              DotNetVersionForWebsite: 'No Managed Code'
-              PipeLineModeForWebsite: 'Integrated'
-              AppPoolIdentityForWebsite: 'ApplicationPoolIdentity'
               AppPoolName: '$(Parameters.AppPoolName)'
-              Bindings: |
-                  {
-                      bindings:[
-                          {
-                              "protocol":"http",
-                              "ipAddress":"All Unassigned",
-                              "hostname":"",
-                              "port":"88"
-                          }
-                      ]
-                  }
 
           - task: IISWebAppDeploymentOnMachineGroup@0
             displayName: 'IIS Web App Deploy'
