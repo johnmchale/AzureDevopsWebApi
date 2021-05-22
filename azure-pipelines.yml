@@ -56,23 +56,14 @@ steps:
     ActionIISWebsite: 'CreateOrUpdateWebsite'
     WebsiteName: 'MyAzureDevOpsWebApi7'
     WebsitePhysicalPath: '%SystemDrive%\inetpub\wwwroot\MyAzureDevOpsWebApi'
+    Parameters.AddBinding: false
     WebsitePhysicalPathAuth: 'WebsiteUserPassThrough'
     CreateOrUpdateAppPoolForWebsite: true
     AppPoolNameForWebsite: 'MyAzureDevOpsWebApiAppPool'
     DotNetVersionForWebsite: 'No Managed Code'
     PipeLineModeForWebsite: 'Integrated'
     AppPoolIdentityForWebsite: 'ApplicationPoolIdentity'
-    Bindings: |
-        {
-            bindings:[
-                {
-                    "protocol":"http",
-                    "ipAddress":"All Unassigned",
-                    "hostname":"",
-                    "port":"88"
-                }
-            ]
-        }
+
 
 
 - task: IISWebAppDeploymentOnMachineGroup@0
@@ -83,16 +74,16 @@ steps:
 - stage: 'Deploy'
   displayName: 'Deploy the web application'
   jobs:
-  - deployment: 'DeployToDev'
-    displayName: 'Deploy the web application to dev environment'
+  - deployment: 'DeployToHPSpectreX360'
+    displayName: 'Deploy the web application to HPSpectreX360 environment'
     variables:
       Parameters.IISDeploymentType: 'IISWebsite'
       Parameters.ActionIISWebsite: 'CreateOrUpdateWebsite'
-      Parameters.WebsiteName: 'Default Web Site'
-      Parameters.WebsitePhysicalPath: '%SystemDrive%\inetpub\wwwroot\AspNetDemo'
-      Parameters.AddBinding: false
+      Parameters.WebsiteName: 'MyAzureDevOpsWebApi7'
+      Parameters.WebsitePhysicalPath: '%SystemDrive%\inetpub\wwwroot\MyAzureDevOpsWebApi'
+      Parameters.AddBinding: true
       Parameters.VirtualPathForApplication: '/AspNetDemo'
-      Parameters.AppPoolName: ''
+      Parameters.AppPoolName: 'MyAzureDevOpsWebApiAppPool'
       Parameters.VirtualApplication: 'AspNetDemo'
       Parameters.Package: '$(Pipeline.Workspace)\drop\*.zip'
       Parameters.RemoveAdditionalFilesFlag: true
@@ -100,14 +91,14 @@ steps:
       Parameters.XmlTransformation: true
       Parameters.XmlVariableSubstitution: true
     environment:
-      name: Dev
+      name: HPSpectreX360
       resourceType: VirtualMachine
     strategy:
       runOnce:
         deploy:
           steps:
           - download: current
-            artifact: drop
+            artifact: AspNetCoreExample
             
           - task: IISWebAppManagementOnMachineGroup@0
             displayName: 'IIS Web App Manage'
@@ -122,6 +113,17 @@ steps:
               ParentWebsiteNameForApplication: '$(Parameters.WebsiteName)'
               VirtualPathForApplication: '$(Parameters.VirtualPathForApplication)'
               AppPoolName: '$(Parameters.AppPoolName)'
+              Bindings: |
+                  {
+                      bindings:[
+                          {
+                              "protocol":"http",
+                              "ipAddress":"All Unassigned",
+                              "hostname":"",
+                              "port":"88"
+                          }
+                      ]
+                  }
 
           - task: IISWebAppDeploymentOnMachineGroup@0
             displayName: 'IIS Web App Deploy'
