@@ -71,6 +71,7 @@ stages:
     environment:
       name: DESKTOP-868IR3T
       resourceType: VirtualMachine
+      tags: windows
     strategy:
       runOnce:
         deploy:
