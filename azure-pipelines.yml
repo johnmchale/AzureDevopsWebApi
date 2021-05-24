@@ -100,7 +100,7 @@ stages:
                               "protocol":"http",
                               "ipAddress":"All Unassigned",
                               "hostname":"",
-                              "port":"80",
+                              "port":"88",
                               "sslThumbprint":"",
                               "sniFlag":false
                           }
