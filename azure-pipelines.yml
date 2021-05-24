@@ -97,7 +97,7 @@ stages:
                           {
                               "protocol":"http",
                               "ipAddress":"All Unassigned",
-                              "hostname":"",
+                              "hostname":"www.azuredevopswebapi.co.uk",
                               "port":"88"
                           }
                       ]
