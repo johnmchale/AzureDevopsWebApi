@@ -58,8 +58,8 @@ stages:
       Parameters.IISDeploymentType: 'IISWebsite'
       Parameters.ActionIISWebsite: 'CreateOrUpdateWebsite'
       Parameters.WebsiteName: 'Default Web Site'
-      Parameters.WebsitePhysicalPath: '%SystemDrive%\inetpub\wwwroot\AspNetDemo'
-      Parameters.AddBinding: false
+      Parameters.WebsitePhysicalPath: '%SystemDrive%\inetpub\wwwroot\MyAzureDevOpsWebApi'
+      Parameters.AddBinding: true
       Parameters.VirtualPathForApplication: '/AspNetDemo'
       Parameters.AppPoolName: ''
       Parameters.VirtualApplication: 'AspNetDemo'
@@ -87,6 +87,17 @@ stages:
               WebsiteName: '$(Parameters.WebsiteName)'
               WebsitePhysicalPath: '$(Parameters.WebsitePhysicalPath)'
               AddBinding: $(Parameters.AddBinding)
+              Bindings: |
+                  {
+                      bindings:[
+                          {
+                              "protocol":"http",
+                              "ipAddress":"All Unassigned",
+                              "hostname":"",
+                              "port":"88"
+                          }
+                      ]
+                  }
               ParentWebsiteNameForVD: '$(Parameters.WebsiteName)'
               VirtualPathForVD: '$(Parameters.VirtualPathForApplication)'
               ParentWebsiteNameForApplication: '$(Parameters.WebsiteName)'
