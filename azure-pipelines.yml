@@ -60,9 +60,9 @@ stages:
       Parameters.WebsiteName: 'Default Web Site'
       Parameters.WebsitePhysicalPath: '%SystemDrive%\inetpub\wwwroot\MyAzureDevOpsWebApi'
       Parameters.AddBinding: true
-      Parameters.VirtualPathForApplication: '/AspNetDemo'
-      Parameters.AppPoolName: ''
-      Parameters.VirtualApplication: 'AspNetDemo'
+      Parameters.VirtualPathForApplication: '/MyAzureDevOpsWebApi'
+      Parameters.AppPoolName: 'MyAzureDevOpsWebApi'
+      Parameters.VirtualApplication: 'MyAzureDevOpsWebApi'
       Parameters.Package: '$(Pipeline.Workspace)\drop\*.zip'
       Parameters.RemoveAdditionalFilesFlag: true
       Parameters.TakeAppOfflineFlag: true
@@ -86,6 +86,9 @@ stages:
               ActionIISWebsite: '$(Parameters.ActionIISWebsite)'
               WebsiteName: '$(Parameters.WebsiteName)'
               WebsitePhysicalPath: '$(Parameters.WebsitePhysicalPath)'
+              DotNetVersionForWebsite: 'No Managed Code'
+              PipeLineModeForWebsite: 'Integrated'
+              AppPoolIdentityForWebsite: 'ApplicationPoolIdentity'
               AddBinding: $(Parameters.AddBinding)
               Bindings: |
                   {
