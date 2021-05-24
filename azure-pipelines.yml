@@ -69,7 +69,7 @@ stages:
       Parameters.XmlTransformation: true
       Parameters.XmlVariableSubstitution: true
     environment:
-      name: HPSpectreX360
+      name: DEV
       resourceType: VirtualMachine
  
     strategy:
