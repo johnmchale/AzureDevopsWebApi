@@ -81,38 +81,37 @@ stages:
             
           - task: IISWebAppManagementOnMachineGroup@0
             displayName: 'IIS Web App Manage'
-            inputs:
-              IISDeploymentType: '$(Parameters.IISDeploymentType)'
-              ActionIISWebsite: '$(Parameters.ActionIISWebsite)'
-              WebsiteName: '$(Parameters.WebsiteName)'
-              WebsitePhysicalPath: '$(Parameters.WebsitePhysicalPath)'
+            inputs:            
+              IISDeploymentType: 'IISWebsite'
+              ActionIISWebsite: 'CreateOrUpdateWebsite'
+              WebsiteName: 'MyAzureDevOpsWebApi'
+              WebsitePhysicalPath: '%SystemDrive%\inetpub\wwwroot\MyAzureDevOpsWebApi'
               WebsitePhysicalPathAuth: 'WebsiteUserPassThrough'
+              CreateOrUpdateAppPoolForWebsite: true
+              AppPoolNameForWebsite: 'MyAzureDevOpsWebApi'
               DotNetVersionForWebsite: 'No Managed Code'
               PipeLineModeForWebsite: 'Integrated'
               AppPoolIdentityForWebsite: 'ApplicationPoolIdentity'
-              AddBinding: $(Parameters.AddBinding)
+              AddBinding: true
               Bindings: |
                   {
                       bindings:[
                           {
                               "protocol":"http",
                               "ipAddress":"All Unassigned",
-                              "hostname":"www.azuredevopswebapi.co.uk",
-                              "port":"88"
+                              "hostname":"",
+                              "port":"80",
+                              "sslThumbprint":"",
+                              "sniFlag":false
                           }
                       ]
                   }
-              ParentWebsiteNameForVD: '$(Parameters.WebsiteName)'
-              VirtualPathForVD: '$(Parameters.VirtualPathForApplication)'
-              ParentWebsiteNameForApplication: '$(Parameters.WebsiteName)'
-              VirtualPathForApplication: '$(Parameters.VirtualPathForApplication)'
-              AppPoolName: '$(Parameters.AppPoolName)'
+
 
           - task: IISWebAppDeploymentOnMachineGroup@0
             displayName: 'IIS Web App Deploy'
             inputs:
-              WebSiteName: '$(Parameters.WebsiteName)'
-              VirtualApplication: '$(Parameters.VirtualApplication)'
+              WebSiteName: 'MyAzureDevOpsWebApi'
               Package: '$(Parameters.Package)'
               RemoveAdditionalFilesFlag: $(Parameters.RemoveAdditionalFilesFlag)
               TakeAppOfflineFlag: $(Parameters.TakeAppOfflineFlag)
