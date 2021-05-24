@@ -60,9 +60,9 @@ stages:
       Parameters.WebsiteName: 'Default Web Site'
       Parameters.WebsitePhysicalPath: '%SystemDrive%\inetpub\wwwroot\MyAzureDevOpsWebApi'
       Parameters.AddBinding: true
-      Parameters.VirtualPathForApplication: '/MyAzureDevOpsWebApi'
+      Parameters.VirtualPathForApplication: ''
       Parameters.AppPoolName: 'MyAzureDevOpsWebApi'
-      Parameters.VirtualApplication: 'MyAzureDevOpsWebApi'
+      Parameters.VirtualApplication: ''
       Parameters.Package: '$(Pipeline.Workspace)\drop\*.zip'
       Parameters.RemoveAdditionalFilesFlag: true
       Parameters.TakeAppOfflineFlag: true
